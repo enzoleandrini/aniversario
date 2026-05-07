@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aniversário de 21 anos 🎉</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #0a0a0f;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+        font-family: "Syne", sans-serif;
+      }
+
+      .card {
+        background: #0f0f1a;
+        border: 1px solid #2a2a4a;
+        border-radius: 16px;
+        max-width: 520px;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 0 60px rgba(100, 80, 255, 0.15);
+      }
+
+      .terminal-bar {
+        background: #1a1a2e;
+        border-bottom: 1px solid #2a2a4a;
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      .dot-r {
+        background: #ff5f57;
+      }
+      .dot-y {
+        background: #febc2e;
+      }
+      .dot-g {
+        background: #28c840;
+      }
+
+      .terminal-title {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: #555;
+        margin-left: 8px;
+      }
+
+      .content {
+        padding: 2.5rem 2rem 2rem;
+        position: relative;
+      }
+
+      .grid-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+          linear-gradient(rgba(100, 80, 255, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(100, 80, 255, 0.04) 1px, transparent 1px);
+        background-size: 32px 32px;
+        pointer-events: none;
+      }
+
+      .badge {
+        display: inline-block;
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: #7c5cfc;
+        border: 1px solid #3a2a7a;
+        background: rgba(100, 80, 255, 0.08);
+        padding: 4px 10px;
+        border-radius: 4px;
+        letter-spacing: 0.08em;
+        margin-bottom: 1.5rem;
+      }
+
+      .age-block {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 0.25rem;
+      }
+
+      .age-num {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(64px, 18vw, 92px);
+        font-weight: 800;
+        color: #fff;
+        line-height: 1;
+        letter-spacing: -4px;
+      }
+
+      .age-label {
+        font-family: "Space Mono", monospace;
+        font-size: 13px;
+        color: #7c5cfc;
+        line-height: 1.4;
+      }
+
+      .name-line {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(20px, 6vw, 28px);
+        font-weight: 700;
+        color: #c8c0ff;
+        letter-spacing: -0.5px;
+        margin-bottom: 2rem;
+      }
+
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, #7c5cfc, transparent);
+        margin-bottom: 2rem;
+        opacity: 0.4;
+      }
+
+      .code-block {
+        background: #080810;
+        border: 1px solid #1e1e3a;
+        border-radius: 8px;
+        padding: 1.2rem 1.4rem;
+        margin-bottom: 2rem;
+        font-family: "Space Mono", monospace;
+        overflow-x: auto;
+      }
+
+      .code-comment {
+        color: #444466;
+        font-size: 11px;
+        margin-bottom: 6px;
+      }
+
+      .code-line {
+        font-size: 12px;
+        line-height: 2;
+        white-space: nowrap;
+      }
+
+      .kw {
+        color: #7c5cfc;
+      }
+      .str {
+        color: #e8c77a;
+      }
+      .fn {
+        color: #5cbffc;
+      }
+      .val {
+        color: #fc7a5c;
+      }
+      .cmt {
+        color: #444466;
+      }
+      .wh {
+        color: #fff;
+      }
+
+      .info-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 1rem;
+      }
+
+      .info-icon {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: #7c5cfc;
+        background: rgba(100, 80, 255, 0.1);
+        border: 1px solid #3a2a7a;
+        padding: 3px 7px;
+        border-radius: 4px;
+        white-space: nowrap;
+        margin-top: 1px;
+        flex-shrink: 0;
+      }
+
+      .info-text {
+        font-family: "Syne", sans-serif;
+        font-size: 15px;
+        color: #c8c0ff;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .info-sub {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: #555;
+        margin-top: 2px;
+      }
+
+      .warning-box {
+        background: rgba(252, 122, 92, 0.07);
+        border: 1px solid rgba(252, 122, 92, 0.25);
+        border-radius: 8px;
+        padding: 0.9rem 1.1rem;
+        margin-top: 1.5rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .warning-tag {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: #fc7a5c;
+        white-space: nowrap;
+        margin-top: 1px;
+        flex-shrink: 0;
+      }
+
+      .warning-text {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: #fc7a5c;
+        opacity: 0.8;
+        line-height: 1.6;
+      }
+
+      .footer {
+        border-top: 1px solid #1a1a2e;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .footer-text {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        color: #333355;
+      }
+
+      .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #28c840;
+        animation: blink 1.4s ease-in-out infinite;
+        display: inline-block;
+        margin-right: 6px;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.2;
+        }
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 2px;
+        height: 14px;
+        background: #7c5cfc;
+        margin-left: 2px;
+        vertical-align: middle;
+        animation: blink 1s steps(1) infinite;
+      }
+
+      .glow-accent {
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(
+          circle,
+          rgba(100, 80, 255, 0.12) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      /* Fade-in animation */
+      .card {
+        animation: fadeUp 0.6s ease forwards;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="terminal-title">aniversario.exe — running</span>
+      </div>
+
+      <div class="content">
+        <div class="glow-accent"></div>
+        <div class="grid-bg"></div>
+
+        <div class="badge">// event_init.js</div>
+
+        <div class="age-block">
+          <div class="age-num">21</div>
+          <div class="age-label">anos<br />de build</div>
+        </div>
+        <div class="name-line">
+          Você está convidado<span class="cursor"></span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="code-block">
+          <div class="code-comment">// detalhes do evento</div>
+          <div class="code-line">
+            <span class="kw">const</span> <span class="wh">festa</span> = {
+          </div>
+          <div class="code-line">
+            &nbsp;&nbsp;<span class="fn">data</span>:
+            <span class="str">"sábado, 09/05"</span>,
+          </div>
+          <div class="code-line">
+            &nbsp;&nbsp;<span class="fn">horario</span>:
+            <span class="str">"16h / 17h"</span>,
+          </div>
+          <div class="code-line">
+            &nbsp;&nbsp;<span class="fn">bebida</span>:
+            <span class="val">traga_a_sua</span>,
+            <span class="cmt">// obrigatório</span>
+          </div>
+          <div class="code-line">};</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">📍 local</div>
+          <div>
+            <div class="info-text">
+              Rua Mauricio Matielo, 80 — 17 D<br />Residencial Macaubeiras
+            </div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">🎂 rsvp</div>
+          <div>
+            <div class="info-text">Confirma presença no WhatsApp</div>
+            <div class="info-sub">// não atrasa o build</div>
+          </div>
+        </div>
+
+        <div class="warning-box">
+          <span class="warning-tag">⚠ AVISO</span>
+          <div class="warning-text">
+            Cada um traz o que for beber.<br />
+            Quem vier de mãos abanando, passa só no console.log().
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <span class="footer-text"
+          ><span class="status-dot"></span>festa_v21.0.0 — stable release</span
+        >
+        <span class="footer-text">🤙 vai ser irado</span>
+      </div>
+    </div>
+  </body>
+</html>
